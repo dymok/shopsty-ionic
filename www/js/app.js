@@ -1,3 +1,4 @@
+"use strict";
 // Ionic Starter App
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
@@ -5,7 +6,39 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('shopsty', ['ionic'])
 
-.controller('AppController', function($scope, $ionicSideMenuDelegate) {
+.factory('Packs', function() {
+  var storageKeys = {
+    packs: 'packs',
+    lastActivePack: 'lastActivePack'
+  };
+  return {
+    all: function() {
+      var packString = window.localStorage[storageKeys.packs];
+      if (packString) {
+        return angular.fromJson(packString);
+      }
+      return [];
+    },
+    save: function(packs) {
+      window.localStorage[storageKeys.packs] = angular.toJson(packs);
+    },
+    newPack: function(packTitle) {
+      return {
+        title: packTitle,
+        date: new Date(),
+        items: []
+      }
+    },
+    getLastActiveIndex: function() {
+      return parseInt(window.localStorage[storageKeys.lastActivePack]) || 0;
+    },
+    setLastActiveIndex: function(index) {
+      window.localStorage[storageKeys.lastActivePack] = index;
+    }
+  }
+})
+
+.controller('AppController', function($scope, Packs, $ionicSideMenuDelegate) {
   $scope.toggleMenu = function() {
     $ionicSideMenuDelegate.toggleLeft();
   };
