@@ -30,16 +30,31 @@
           <h1 class="title">Shopsty</h1>
         </ion-header-bar>
         <ion-content scroll="false">
-
+          <ion-list>
+            <ion-item ng-repeat="item in activePack.items">
+              {{item.title}}
+            </ion-item>
+          </ion-list>
         </ion-content>
       </ion-side-menu-content>
 
       <!-- Left menu -->
       <ion-side-menu side="left">
         <ion-header-bar class="bar-dark">
+          <button class="button button-icon">
+            <i class="icon ion-trash-a"></i>
+          </button>
           <h1 class="title">Settings</h1>
+          <button class="button button-icon" ng-click="showAddPack()">
+            <i class="icon ion-plus"></i>
+          </button>
         </ion-header-bar>
         <ion-content scroll="false">
+          <ion-list>
+            <ion-item ng-repeat="pack in packs">
+              {{pack.title}}
+            </ion-item>
+          </ion-list>
 
         </ion-content>
       </ion-side-menu>

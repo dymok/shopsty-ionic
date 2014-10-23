@@ -25,7 +25,7 @@ angular.module('shopsty', ['ionic'])
     newPack: function(packTitle) {
       return {
         title: packTitle,
-        date: new Date(),
+        //date: new Date(),
         items: []
       }
     },
@@ -38,9 +38,35 @@ angular.module('shopsty', ['ionic'])
   }
 })
 
-.controller('AppController', function($scope, Packs, $ionicSideMenuDelegate) {
+.controller('AppController', function($scope, $ionicModal, Packs, $ionicSideMenuDelegate) {
+
+  $ionicModal.fromTemplateUrl('templates/pack-form.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.packFormModal = modal;
+  });
+
+  $scope.packs = Packs.all();
+
+  $scope.activePack = $scope.packs.length != 0 ? $scope.packs[Packs.getLastActiveIndex()] : null;
+
   $scope.toggleMenu = function() {
     $ionicSideMenuDelegate.toggleLeft();
+  };
+
+  $scope.showAddPack = function() {
+    $scope.packFormModal.show();
+  };
+
+  $scope.cancelAddPack = function() {
+    $scope.packFormModal.hide();
+  };
+
+  $scope.addPack = function(pack) {
+    $scope.packs.push(Packs.newPack(pack.title));
+    Packs.save($scope.packs);
+    $scope.packFormModal.hide();
+    pack.title = '';
   };
 })
 
