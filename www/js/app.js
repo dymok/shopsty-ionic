@@ -80,6 +80,15 @@ angular.module('shopsty', ['ionic'])
       Packs.save($scope.packs);
     }
   }
+  $scope.addItem = function(item) {
+    if ($scope.activePack) {
+      $scope.activePack.items.push({
+        title: item.title
+      });
+      Packs.save($scope.packs);
+      item.title = '';
+    }
+  }
 })
 
 .run(function($ionicPlatform) {

@@ -30,6 +30,14 @@
           <h1 class="title">Shopsty</h1>
         </ion-header-bar>
         <ion-content scroll="false">
+          <div class="list">
+            <form ng-submit="addItem(item)">
+            <label class="item item-input item-floating-label">
+              <span class="input-label">Item title</span>
+              <input type="text" placeholder="Item title" ng-model="item.title">
+            </label>
+            </form>
+          </div>
           <ion-list>
             <ion-item ng-repeat="item in activePack.items">
               {{item.title}}
