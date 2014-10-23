@@ -68,6 +68,11 @@ angular.module('shopsty', ['ionic'])
     $scope.packFormModal.hide();
     pack.title = '';
   };
+            
+  $scope.selectPack = function(pack, index) {
+    $scope.activePack = pack;
+    Packs.setLastActiveIndex(index);
+  }
 
   $scope.clearPacks = function() {
     if (confirm("Do you really want to remove all pack?")) {

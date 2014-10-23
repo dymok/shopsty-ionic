@@ -44,14 +44,14 @@
           <button class="button button-icon" ng-click="clearPacks()">
             <i class="icon ion-trash-a"></i>
           </button>
-          <h1 class="title">Settings</h1>
+          <h1 class="title">Packs</h1>
           <button class="button button-icon" ng-click="showAddPack()">
             <i class="icon ion-plus"></i>
           </button>
         </ion-header-bar>
         <ion-content scroll="false">
           <ion-list>
-            <ion-item ng-repeat="pack in packs">
+            <ion-item ng-repeat="pack in packs" ng-click="selectPack(pack, $index)" ng-class="{active: pack == activePack}">
               {{pack.title}}
             </ion-item>
           </ion-list>
